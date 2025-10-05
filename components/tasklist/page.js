@@ -24,7 +24,7 @@ export default function TaskList() {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch("/api/gettasks")
+      const response = await fetch(`${head}/api/gettasks`)
       const result = await response.json()
       if (result.success) {
         setTasks(result.data)
@@ -83,7 +83,7 @@ export default function TaskList() {
 
   const handleRemove = async (_id) => {
     try {
-      const response = await fetch('/api/taskapi/DeleteTask', {
+      const response = await fetch(`${head}/api/taskapi/DeleteTask`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ _id })

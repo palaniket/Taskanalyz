@@ -44,7 +44,7 @@ export function EditTaskDialog({ task, open, onOpenChange, onUpdateTask }) {
     };
 
     try {
-      const response = await fetch("/api/taskapi/EditTask", {
+      const response = await fetch(`${head}/api/taskapi/EditTask`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedTask),
