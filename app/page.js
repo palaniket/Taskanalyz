@@ -1,5 +1,5 @@
 // import { Header } from "../components/"
-import  SearchBar  from "../components/searchbar/page"
+
 import  TaskList  from "../components/tasklist/page"
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
     
       <main className="container mx-auto px-4 py-8 max-w-4xl">
-        <SearchBar />
+       
         <TaskList />
       </main>
     </div>

@@ -49,7 +49,7 @@ export function TaskCard({ task, onToggle, onEdit, onRemove, onAnalyze }) {
           </div>
           {task.assignedBy && (
             <p className="text-sm text-muted-foreground">
-              Assigned by: {task.assignedBy}
+              Assigned by: {task.email}
             </p>
           )}
           {task.description && (
@@ -59,7 +59,7 @@ export function TaskCard({ task, onToggle, onEdit, onRemove, onAnalyze }) {
           )}
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <Button
+          {/* <Button
             variant="default"
             size="sm"
             onClick={() => onAnalyze(task._id)}
@@ -67,7 +67,7 @@ export function TaskCard({ task, onToggle, onEdit, onRemove, onAnalyze }) {
           >
             <Sparkles className="h-4 w-4 mr-1" />
             AI Analyze
-          </Button>
+          </Button> */}
           <Button
             variant="ghost"
             size="sm"
