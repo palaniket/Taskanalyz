@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+TaskAnalyz – Project Documentation
 
-## Getting Started
+1. Project Overview
 
-First, run the development server:
+TaskAnalyz is a full-stack web application designed to help users manage, track, and analyze tasks efficiently. It provides a simple interface for creating, updating, and deleting tasks, along with detailed analytics of task progress and trends. The project leverages React/Next.js for the frontend, Node.js/Express for the backend API, and MongoDB Atlas for data storage.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Features / Functionalities
+2.1 Task Management
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create Tasks: Users can add tasks with details such as title, description, priority, and due date.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Read / View Tasks: Fetch and display all tasks in a structured list or table.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Update Tasks: Modify task details or status (e.g., pending, in-progress, completed).
 
-## Learn More
+Delete Tasks: Remove tasks permanently from the database.
 
-To learn more about Next.js, take a look at the following resources:
+2.2 Analytics & Insights
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Displays the number of completed, pending, and in-progress tasks.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Provides time-based task trends (daily/monthly analytics).
 
-## Deploy on Vercel
+Supports filtering by task status or other criteria.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2.3 Backend API
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+CRUD endpoints for tasks:
+
+GET /api/gettasks → Fetch all tasks.
+
+POST /api/addtask → Add a new task.
+
+PUT /api/updatetask/:id → Update a task.
+
+DELETE /api/deletetask/:id → Delete a task.
+
+Handles error responses with meaningful messages.
+
+Connects to MongoDB Atlas with optimized serverless connection handling.
+
+2.4 Deployment & Hosting
+
+Frontend & API hosted on Vercel.
+
+Database hosted on MongoDB Atlas.
+
+Environment variables securely stored in Vercel for production.
+
+3. Technology Stack
+Layer	Technology
+Frontend	React.js / Next.js
+Backend	Node.js, Express.js (API Routes)
+Database	MongoDB Atlas
+Deployment	Vercel
+State Management	React Hooks (useState, useEffect)
+Styling	CSS / Tailwind CSS (optional)
+
+
+
+
+4. System Architecture
+Frontend (Next.js)
+        │
+        │ HTTP Requests (fetch/axios)
+        ▼
+Backend API (Node.js/Express or Next.js API Routes)
+        │
+        │ Mongoose / MongoDB Driver
+        ▼
+MongoDB Atlas (Database)
+
+5. API Reference
+Endpoint	Method	Body / Params	Response
+/api/gettasks	-> get all the tasks from the database
+/api/addtask	-> Post new task to the database
+/api/updatetask/:id	->Update the existing tasks.
+/api/deletetask/:id	DELETE	-> Delete the tasks with matching id
+
+6. Best Practices Implemented
+
+Serverless DB Connection Caching for Vercel.
+
+Error Handling for API requests.
+
+Environment Variables for sensitive data.
+
+React Hooks for state and lifecycle management.
+
+Responsive Design for cross-device usability.
