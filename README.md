@@ -72,9 +72,13 @@ MongoDB Atlas (Database)
 
 5. API Reference
 Endpoint	Method	Body / Params	Response
+
 /api/gettasks	-> get all the tasks from the database
+
 /api/addtask	-> Post new task to the database
+
 /api/updatetask/:id	->Update the existing tasks.
+
 /api/deletetask/:id	DELETE	-> Delete the tasks with matching id
 
 6. Best Practices Implemented
