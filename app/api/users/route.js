@@ -9,6 +9,7 @@ export async function POST(request) {
         const user = await Users.create(body);
         return Response.json({ success: true, data: user }, { status: 201 });
     } catch (error) {
+        console.log(error);
         return Response.json({ success: false, error: error.message }, { status: 400 });
     }
 }
