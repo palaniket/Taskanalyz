@@ -16,6 +16,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 
+import { toast } from "sonner"
+
 export function EditTaskDialog({ task, open, onOpenChange, onUpdateTask }) {
   const [name, setName] = useState("")
   const [priority, setPriority] = useState("medium")
@@ -31,17 +33,36 @@ export function EditTaskDialog({ task, open, onOpenChange, onUpdateTask }) {
     }
   }, [task])
 
-  const handleUpdate = () => {
-    if (task && name.trim() && emailId.trim()) {
-      onUpdateTask(task.id, {
-        name: name.trim(),
-        priority,
-        description: description.trim(),
-        assignedBy: emailId.trim(),
-      })
-      onOpenChange(false)
+  const handleUpdate = async () => {
+  if (task && name.trim()) {
+    const updatedTask = {
+      _id: task._id,
+      name: name.trim(),
+      priority,
+      description: description.trim(),
+    //   email: emailId.trim(),
+    };
+
+    try {
+      const response = await fetch("/api/taskapi/EditTask", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedTask),
+      });
+      const result = await response.json();
+      if (result.success) {
+        onUpdateTask(task._id, updatedTask); // update parent state
+        onOpenChange(false); // close dialog
+        toast('task updated successfully')
+      } else {
+        // handle error (e.g., show toast)
+        console.error(result.error);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
+};
 
   const handleCancel = () => {
     onOpenChange(false)
@@ -97,7 +118,7 @@ export function EditTaskDialog({ task, open, onOpenChange, onUpdateTask }) {
             />
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label htmlFor="edit-email">Email ID</Label>
             <Input
               id="edit-email"
@@ -107,14 +128,14 @@ export function EditTaskDialog({ task, open, onOpenChange, onUpdateTask }) {
               onChange={(e) => setEmailId(e.target.value)}
               className="bg-card"
             />
-          </div>
+          </div> */}
         </div>
 
         <DialogFooter>
           <Button variant="outline" onClick={handleCancel}>
             Cancel
           </Button>
-          <Button onClick={handleUpdate} disabled={!name.trim() || !emailId.trim()}>
+          <Button onClick={handleUpdate} disabled={!name.trim() }>
             Update
           </Button>
         </DialogFooter>
