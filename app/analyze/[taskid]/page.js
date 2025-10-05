@@ -6,39 +6,47 @@ import { ArrowLeft, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
+import { AI_PROMPT } from "@/app/constants/options"
+import { toast } from "sonner"
+// import { genAI } from "@/lib/ai"
+import { chatSession } from '@/service/AImodel';
 
-export default function AnalyzePage() {
+export default function AnalyzePage({p}) {
   const router = useRouter()
   const params = useParams()
-  const taskId = params.taskId
+  const {taskid} = params;
   const [prompt, setPrompt] = useState("")
   const [answer, setAnswer] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!prompt.trim() || isLoading) return
+    // console.log(taskid)
+    e.preventDefault();
+    try{
+      const docs=await fetch('/api/gettaskdetail',{
+        method:'POST',
+        headers:{ 'Content-Type':'application/json'},
+      body:JSON.stringify({taskid:taskid})
+     } );
+     const res=await docs.json();
+     console.log(res)
+     const desc=res.data.description;
+     const summ=res.data.googleDetails;
+     const finalprompt=AI_PROMPT.replace(`{description}`,desc).replace(`{previous_results}`,summ).replace(`{user_prompt}`,prompt)
+     console.log(finalprompt)
 
-    setIsLoading(true)
-    setAnswer("")
-
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponse = `Based on your query "${prompt}" for task #${taskId}, here's my analysis:
-
-The task appears to be well-structured and achievable. I recommend breaking it down into smaller subtasks for better tracking and progress monitoring. 
-
-Key insights:
-• Estimated completion time: 2-3 days
-• Recommended priority: Medium to High
-• Consider assigning additional resources if deadline is tight
-• Regular check-ins will help maintain momentum
-
-The current approach looks solid, but ensure all dependencies are clearly identified before starting implementation.`
-
-      setAnswer(aiResponse)
-      setIsLoading(false)
-    }, 2000)
+    const result = await chatSession.sendMessage(finalprompt);
+    console.log(result);
+//      setIsLoading(true);
+// const result = await response.response.text();
+// setAnswer(result);
+      
+// setIsLoading(false);
+console.log(finalprompt)
+    }catch(error){
+      toast('something went wrong');
+      console.log(error)
+    }
   }
 
   return (
@@ -53,7 +61,7 @@ The current approach looks solid, but ensure all dependencies are clearly identi
             <Sparkles className="h-5 w-5 text-primary" />
             <h1 className="text-lg font-semibold">AI Task Analyzer</h1>
           </div>
-          <span className="text-sm text-muted-foreground">Task #{taskId}</span>
+          <span className="text-sm text-muted-foreground">Task #{taskid}</span>
         </div>
       </header>
 
