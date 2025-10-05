@@ -16,6 +16,8 @@ export default function TaskList() {
   const initialTasks = []
   const router = useRouter()
   const [tasks, setTasks] = useState([])
+  const [editingTask, setEditingTask] = useState(null);
+   const [editDialogOpen, setEditDialogOpen] = useState(false)
     useEffect(() => {
     const fetchTasks = async () => {
       const response = await fetch("/api/gettasks");
@@ -76,6 +78,14 @@ export default function TaskList() {
     router.push(`/analyze/${id}`)
   }
 
+  const handleUpdateTask = (id, updates) => {
+  setTasks(tasks.map((task) =>
+    task._id === id ? { ...task, ...updates } : task
+  ));
+  setEditDialogOpen(false);
+  setEditingTask(null);
+};
+
   return (
     <div className="space-y-6">
       <div className="flex justify-center">
@@ -98,6 +108,12 @@ export default function TaskList() {
           <Filter className="h-4 w-4" />
         </Button>
       </div>
+       <EditTaskDialog
+        task={editingTask}
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+        onUpdateTask={handleUpdateTask}
+      />
 
       {/* Task Cards */}
       <div className="space-y-3">
