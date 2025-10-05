@@ -31,7 +31,7 @@ export function CreateTaskDialog({ onCreateTask }) {
         name: name.trim(),
         priority,
         description: description.trim(),
-        assignedBy: emailId.trim(),
+        email: emailId.trim(),
       }
       try{
         const response=await fetch('/api/taskapi/createtask',{

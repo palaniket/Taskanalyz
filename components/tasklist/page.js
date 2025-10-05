@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Filter } from "lucide-react"
 import { Button } from "../ui/button"
@@ -8,28 +8,28 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { TaskCard } from "../task-card/page"
 import { CreateTaskDialog } from "../createtaskdialog/page"
 
-const initialTasks = [
-  { id: 1, name: "Complete project documentation", completed: false, priority: "high", assignedBy: "john@example.com" },
-  { id: 2, name: "Review pull requests", completed: false, priority: "medium", assignedBy: "sarah@example.com" },
-  { id: 3, name: "Update dependencies", completed: true, priority: "low", assignedBy: "mike@example.com" },
-  { id: 4, name: "Fix responsive layout issues", completed: false, priority: "high", assignedBy: "emma@example.com" },
-  {
-    id: 5,
-    name: "Implement user authentication",
-    completed: false,
-    priority: "medium",
-    assignedBy: "alex@example.com",
-  },
-  { id: 6, name: "Write unit tests", completed: false, priority: "low", assignedBy: "lisa@example.com" },
-]
+
 
 export default function TaskList() {
+
+  const initialTasks = []
   const router = useRouter()
-  const [tasks, setTasks] = useState(initialTasks)
+  const [tasks, setTasks] = useState([])
+    useEffect(() => {
+    const fetchTasks = async () => {
+      const response = await fetch("/api/gettasks");
+      const result = await response.json();
+      if (result.success) {
+        setTasks(result.data);
+      }
+    };
+    fetchTasks();
+  }, []);
+  console.log(tasks)
 
   const handleCreateTask = (newTask) => {
     const task = {
-      id: Math.max(...tasks.map((t) => t.id), 0) + 1,
+      _id: newTask._id,
       name: newTask.name,
       completed: false,
       priority: newTask.priority,
@@ -39,16 +39,16 @@ export default function TaskList() {
     setTasks([task, ...tasks])
   }
 
-  const handleToggle = (id) => {
-    setTasks(tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)))
+  const handleToggle = (_id) => {
+    setTasks(tasks.map((task) => (task._id === _id ? { ...task, completed: !task.completed } : task)))
   }
 
   const handleEdit = (id) => {
-    console.log("Edit task:", id)
+    console.log("Edit task:", _id)
   }
 
   const handleRemove = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id))
+    setTasks(tasks.filter((task) => task._id !== _id))
   }
 
   const handleAnalyze = (id) => {
@@ -82,7 +82,7 @@ export default function TaskList() {
       <div className="space-y-3">
         {tasks.map((task) => (
           <TaskCard
-            key={task.id}
+            key={task._id}
             task={task}
             onToggle={handleToggle}
             onEdit={handleEdit}
@@ -92,12 +92,6 @@ export default function TaskList() {
         ))}
       </div>
 
-      {/* Analyze Button */}
-      <div className="pt-4">
-        <Button size="lg" className="w-full h-14 text-lg font-semibold">
-          Analyze Tasks
-        </Button>
-      </div>
     </div>
   )
 }
