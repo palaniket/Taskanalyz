@@ -17,6 +17,7 @@ import { Label } from "../ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "../ui/textarea"
 
+
 export function CreateTaskDialog({ onCreateTask }) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState("")
@@ -24,21 +25,38 @@ export function CreateTaskDialog({ onCreateTask }) {
   const [description, setDescription] = useState("")
   const [emailId, setEmailId] = useState("")
 
-  const handleCreate = () => {
+  const handleCreate = async() => {
     if (name.trim() && emailId.trim()) {
-      onCreateTask({
+      const taskData={
         name: name.trim(),
         priority,
         description: description.trim(),
         assignedBy: emailId.trim(),
-      })
-      // Reset form
-      setName("")
-      setPriority("medium")
-      setDescription("")
-      setEmailId("")
-      setOpen(false)
+      }
+      try{
+        const response=await fetch('/api/taskapi/createtask',{
+          method:'POST',
+          headers:{ 'Content-Type':'application/json'},
+          body:JSON.stringify(taskData)
+        })
+        const result = await response.json();
+      if (result.success) {
+        onCreateTask(result.data); // update parent if needed
+        // Reset form
+        setName("");
+        setPriority("medium");
+        setDescription("");
+        setEmailId("");
+        setOpen(false);
+      } else {
+        // handle error (e.g., show toast)
+        console.error(result.error);
+      }
+    } catch (error) {
+      console.error(error);
     }
+    }
+
   }
 
   const handleCancel = () => {
@@ -84,7 +102,7 @@ export function CreateTaskDialog({ onCreateTask }) {
               <SelectContent>
                 <SelectItem value="low">Low</SelectItem>
                 <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="high">High</SelectItem>
+                <SelectItem value="urgent">High</SelectItem>
               </SelectContent>
             </Select>
           </div>

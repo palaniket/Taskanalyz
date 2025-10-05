@@ -11,4 +11,4 @@ const Taskschema=new mongoose.Schema({
     },
     googleDetails:{type:String}
 });
-export default mongoose.models.Tasks||mongoose.model("Taskschema",Taskschema);
+export default mongoose.models.Taskschema||mongoose.model("Taskschema",Taskschema);

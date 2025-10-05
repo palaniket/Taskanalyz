@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Filter } from "lucide-react"
 import { Button } from "../ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
@@ -23,6 +24,7 @@ const initialTasks = [
 ]
 
 export default function TaskList() {
+  const router = useRouter()
   const [tasks, setTasks] = useState(initialTasks)
 
   const handleCreateTask = (newTask) => {
@@ -50,7 +52,7 @@ export default function TaskList() {
   }
 
   const handleAnalyze = (id) => {
-    console.log("Analyze task:", id)
+    router.push(`/analyze/${id}`)
   }
 
   return (
@@ -90,7 +92,12 @@ export default function TaskList() {
         ))}
       </div>
 
-     
+      {/* Analyze Button */}
+      <div className="pt-4">
+        <Button size="lg" className="w-full h-14 text-lg font-semibold">
+          Analyze Tasks
+        </Button>
+      </div>
     </div>
   )
 }
