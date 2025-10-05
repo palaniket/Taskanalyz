@@ -1,10 +1,10 @@
 "use client"
 
 import { Pencil, Trash2, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "../ui/button"
+import { Checkbox } from "../ui/checkbox"
+import { Card } from "../ui/card"
+import { Badge } from "../ui/badge"
 
 const priorityColors = {
   low: "bg-green-500/10 text-green-500 border-green-500/20",

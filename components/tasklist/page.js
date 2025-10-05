@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import { Filter } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { TaskCard } from "@/components/task-card"
-import { CreateTaskDialog } from "@/components/create-task-dialog"
+import { Button } from "../ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { TaskCard } from "../task-card/page"
+import { CreateTaskDialog } from "../createtaskdialog/page"
 
 const initialTasks = [
   { id: 1, name: "Complete project documentation", completed: false, priority: "high", assignedBy: "john@example.com" },
@@ -22,7 +22,7 @@ const initialTasks = [
   { id: 6, name: "Write unit tests", completed: false, priority: "low", assignedBy: "lisa@example.com" },
 ]
 
-export function TaskList() {
+export default function TaskList() {
   const [tasks, setTasks] = useState(initialTasks)
 
   const handleCreateTask = (newTask) => {
@@ -90,12 +90,7 @@ export function TaskList() {
         ))}
       </div>
 
-      {/* Analyze Button */}
-      <div className="pt-4">
-        <Button size="lg" className="w-full h-14 text-lg font-semibold">
-          Analyze Tasks
-        </Button>
-      </div>
+     
     </div>
   )
 }
