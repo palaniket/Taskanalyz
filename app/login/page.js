@@ -45,7 +45,7 @@ const Login = (req,res) => {
        localStorage.setItem('token',response.data)
       toast('You are successfully logged in')
 
-      router.push('http://localhost:3000')
+      router.push('/')
     }
     else {
       toast("Invalid Credentials");

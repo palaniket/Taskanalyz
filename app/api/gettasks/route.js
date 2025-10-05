@@ -1,7 +1,6 @@
 
-
-// import taskschema from './'
-import taskschema from "../../../models/taskschema";
+import Users from '@/models/Users';
+import taskschema from '@/models/taskschema';
 export async function GET() {
     
     
