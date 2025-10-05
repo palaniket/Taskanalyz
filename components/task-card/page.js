@@ -24,7 +24,7 @@ export function TaskCard({ task, onToggle, onEdit, onRemove, onAnalyze }) {
       <div className="flex items-start gap-4">
         <Checkbox
           checked={task.completed}
-          onCheckedChange={() => onToggle(task.id)}
+          onCheckedChange={() => onToggle(task._id)}
           className="h-5 w-5 mt-1"
         />
         <div className="flex-1 space-y-2">
@@ -62,7 +62,7 @@ export function TaskCard({ task, onToggle, onEdit, onRemove, onAnalyze }) {
           <Button
             variant="default"
             size="sm"
-            onClick={() => onAnalyze(task.id)}
+            onClick={() => onAnalyze(task._id)}
             className="h-9 px-3 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
           >
             <Sparkles className="h-4 w-4 mr-1" />
@@ -71,7 +71,7 @@ export function TaskCard({ task, onToggle, onEdit, onRemove, onAnalyze }) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onEdit(task.id)}
+            onClick={() => onEdit(task._id)}
             className="h-9 px-3"
           >
             <Pencil className="h-4 w-4 mr-1" />
@@ -80,7 +80,7 @@ export function TaskCard({ task, onToggle, onEdit, onRemove, onAnalyze }) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onRemove(task.id)}
+            onClick={() => onRemove(task._id)}
             className="h-9 px-3 text-destructive hover:text-destructive hover:bg-destructive/10"
           >
             <Trash2 className="h-4 w-4 mr-1" />

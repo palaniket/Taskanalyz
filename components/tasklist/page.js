@@ -7,6 +7,7 @@ import { Button } from "../ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { TaskCard } from "../task-card/page"
 import { CreateTaskDialog } from "../createtaskdialog/page"
+import { EditTaskDialog } from "../editaskdialog/page"
 
 
 
@@ -44,12 +45,32 @@ export default function TaskList() {
   }
 
   const handleEdit = (id) => {
-    console.log("Edit task:", _id)
+    const task = tasks.find((t) => t._id === id)
+    if (task) {
+      setEditingTask(task)
+      setEditDialogOpen(true)
+    }
   }
 
-  const handleRemove = (id) => {
-    setTasks(tasks.filter((task) => task._id !== _id))
+  const handleRemove = async (_id) => {
+  try {
+    const taskData={_id:_id};
+    const response=await fetch('/api/taskapi/DeleteTask',{
+          method:'DELETE',
+          headers:{ 'Content-Type':'application/json'},
+          body:JSON.stringify(taskData)
+        })
+        const result = await response.json();
+    if (result.success) {
+      setTasks(tasks.filter((task) => task._id !== _id));
+    } else {
+      // handle error (e.g., show toast)
+      console.error(result.error);
+    }
+  } catch (error) {
+    console.error(error);
   }
+};
 
   const handleAnalyze = (id) => {
     router.push(`/analyze/${id}`)
