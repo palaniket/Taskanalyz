@@ -27,6 +27,7 @@ export default function TaskList() {
       const response = await fetch(`/api/gettasks`)
       const result = await response.json()
       if (result.success) {
+        console.log(result.data)
         setTasks(result.data)
       }
     }
@@ -54,7 +55,7 @@ export default function TaskList() {
       completed: false,
       priority: newTask.priority,
       description: newTask.description,
-      assignedBy: newTask.assignedBy,
+      email: newTask.email,
     }
     setTasks([task, ...tasks])
   }

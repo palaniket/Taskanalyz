@@ -1,5 +1,6 @@
-import connectDb from '@/middleware/mongoose';
+import {connectDb} from '@/middleware/mongoose';
 import Users from '@/models/Users';
+
 
 export async function POST(request) {
     await connectDb();

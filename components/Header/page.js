@@ -29,7 +29,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           {!token && (
             <>
-              <Link href="/components/login">
+              <Link href="/login">
                 <Button variant="ghost" size="default">
                   Login
                 </Button>

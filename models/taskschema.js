@@ -9,6 +9,6 @@ const Taskschema=new mongoose.Schema({
         enum:["urgent","medium","low"],
         required:true
     },
-    googleDetails:{type:String,required:true}
+    googleDetails:{type:String,default:""}
 });
 export default mongoose.models.Taskschema||mongoose.model("Taskschema",Taskschema);

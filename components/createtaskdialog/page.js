@@ -26,15 +26,17 @@ export function CreateTaskDialog({ onCreateTask }) {
   const [emailId, setEmailId] = useState("")
 
   const handleCreate = async() => {
+    const details="";
     if (name.trim() && emailId.trim()) {
       const taskData={
         name: name.trim(),
         priority,
         description: description.trim(),
         email: emailId.trim(),
+        googleDetails:details
       }
       try{
-        const response=await fetch(`${head}/api/taskapi/createtask`,{
+        const response=await fetch(`/api/taskapi/createtask`,{
           method:'POST',
           headers:{ 'Content-Type':'application/json'},
           body:JSON.stringify(taskData)

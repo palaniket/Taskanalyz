@@ -2,6 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header/page";
 import { Toaster } from "@/components/ui/sonner"
+import connectDb from '@/middleware/mongoose';
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

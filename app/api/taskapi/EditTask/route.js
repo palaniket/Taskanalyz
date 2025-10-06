@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import taskschema from "@/models/taskschema";
+import { connectDb } from "@/middleware/mongoose";
 
 export async function PUT(request) {
     const body = await request.json();
     try {
+        await connectDb();
         const task = await taskschema.findOneAndUpdate(
             {_id:body._id},
             body,

@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 
 import Users from "@/models/Users";
+import { connectDb } from "@/middleware/mongoose";
 
 export async function POST(req) {
 
 
   try {
+    await connectDb();
     const { email, password } = await req.json();
 
     // 1️ Check if user exists
