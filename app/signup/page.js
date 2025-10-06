@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 
 import { useRouter } from 'next/navigation';
-import toast from 'sonner'
+import {toast} from 'sonner'
 
 
 const Signup = (req,res) => {

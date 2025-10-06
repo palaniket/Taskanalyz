@@ -12,14 +12,7 @@ export async function POST(req) {
     // 1️ Check if user exists
     const user = await Users.create({name:name,email: email,password:password });
 
-    if (!user) {
-      return NextResponse.json(
-        { success: false, message: "User not found" },
-        { status: 404 }
-      );
-    }
 
-    // 2️ Compare password (basic check)
     
     return NextResponse.json(
       { success: true, message: "Signup successful", data: user },
